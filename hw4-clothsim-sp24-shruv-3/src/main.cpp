@@ -1,14 +1,9 @@
 #include <GLFW/glfw3.h>
-#include <cstdlib>
-#include <ctime>
 #include <iostream>
+#include <vector>
 #include "Renderer.h"
-#include "Plate.h"
-#include "Simulation.h"
-
-#define GL_SILENCE_DEPRECATION
-const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGHT = 600;
+#include "Particle.h"
+#include <cmath>
 
 int main() {
     if (!glfwInit()) {
@@ -27,14 +22,28 @@ int main() {
 
     glfwMakeContextCurrent(window);
 
-    // Seed the random number generator
-    srand(static_cast<unsigned int>(time(nullptr)));
+    // Create particles
+    std::vector<Particle> particles;
+    for (int i = 0; i < 1000; ++i) {
+        particles.emplace_back(rand() % windowWidth, rand() % windowHeight);
+    }
+
+    const float waveSpeed = 0.01f;
+    const float waveFrequency = 0.02f;
 
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // Render sand particles
-        Renderer::renderParticles(windowWidth, windowHeight, 1000); // Feel free to adjust the number of particles
+        // Update particles based on wave pattern
+        for (auto& particle : particles) {
+            particle.x += sin(particle.y * waveFrequency + glfwGetTime() * waveSpeed) * 5.0f;
+            // Ensure particles stay within window bounds
+            if (particle.x >= windowWidth) particle.x -= windowWidth;
+            if (particle.x < 0) particle.x += windowWidth;
+        }
+
+        // Render particles
+        Renderer::renderParticles(particles, windowWidth, windowHeight);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

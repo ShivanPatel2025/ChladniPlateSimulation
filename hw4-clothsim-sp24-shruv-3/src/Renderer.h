@@ -2,20 +2,18 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
+#include <vector>
+#include "Particle.h"
 #include <GLFW/glfw3.h>
-#include <cstdlib>
 
 class Renderer {
 public:
-    static void renderParticles(int windowWidth, int windowHeight, int numberOfParticles) {
+    static void renderParticles(const std::vector<Particle>& particles, int windowWidth, int windowHeight) {
         glBegin(GL_POINTS);
-        for (int i = 0; i < numberOfParticles; ++i) {
-            // Generate random positions for the particles
-            float x = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * windowWidth;
-            float y = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * windowHeight;
+        for (const auto& particle : particles) {
             // Convert pixel coordinates to OpenGL coordinates (-1 to 1)
-            float glX = (x / windowWidth) * 2.0f - 1.0f;
-            float glY = (y / windowHeight) * 2.0f - 1.0f;
+            float glX = (particle.x / windowWidth) * 2.0f - 1.0f;
+            float glY = (particle.y / windowHeight) * 2.0f - 1.0f;
             glVertex2f(glX, glY);
         }
         glEnd();
