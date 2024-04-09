@@ -3,8 +3,14 @@
 
 class Plate {
 public:
-    Plate();
-    // Methods to interact with and modify the plate state
+    Plate(float width, float height);
+    void setFrequency(float frequency);
+    void calculateVibrationPattern();
+    // Additional methods for rendering or other purposes
+
+private:
+    float width, height;
+    float frequency;
 };
 
 #endif // PLATE_H

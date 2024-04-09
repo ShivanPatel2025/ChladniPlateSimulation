@@ -1,30 +1,23 @@
-#include <iostream>
-// Include other necessary headers here
-#include "Renderer.h"
+// main.cpp
+#include <GLFW/glfw3.h> // Make sure to link against GLFW or the library you choose for window management
 #include "Simulation.h"
+#include "Utils.h"
+#include <iostream>
 
 int main() {
-    std::cout << "Chladni Plate Simulation Starting..." << std::endl;
+    // Initialize GLFW, create a window, and make its context current
 
-    // Initialize OpenGL context and window using GLFW/GLUT
+    // Main loop where you update the simulation and render
+    while (!glfwWindowShouldClose(window)) {
+        // Poll for and process events
+        glfwPollEvents();
 
-    // Initialize your simulation and renderer objects
-    Simulation simulation;
-    Renderer renderer;
+        // Render here
 
-    // Main loop
-    while (!windowShouldClose) {
-        // Process input
-
-        // Update simulation
-        simulation.update();
-
-        // Render frame
-        renderer.render(simulation);
-
-        // Swap buffers and poll IO events
+        // Swap front and back buffers
+        glfwSwapBuffers(window);
     }
 
-    // Clean up and close the application
+    glfwTerminate();
     return 0;
 }
