@@ -1,22 +1,46 @@
-cmake_minimum_required(VERSION 2.8)
-project(ClothSim)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+cmake_minimum_required(VERSION 3.0)
+project(ChladniPlateSim)
+
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Find OpenGL
+find_package(OpenGL REQUIRED)
+
+# Add include directories for GLFW and GLEW
+include_directories(${OPENGL_INCLUDE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/glfw/include)
+include_directories(${CMAKE_SOURCE_DIR}/glew/include)
+
+# Add subdirectories for GLFW and GLEW
+add_subdirectory(glfw ${CMAKE_SOURCE_DIR}/glfw)
+add_subdirectory(glew ${CMAKE_SOURCE_DIR}/glew)
 
 #-------------------------------------------------------------------------------
-# Build options
+# Set target
 #-------------------------------------------------------------------------------
-option(BUILD_LIBCGL    "Build with libCGL"            ON)
-option(BUILD_DEBUG     "Build with debug settings"    OFF)
-option(BUILD_DOCS      "Build documentation"          OFF)
+set(APPLICATION_SOURCE
+    src/main.cpp
+    src/Plate.cpp
+    src/Renderer.cpp
+    src/Simulation.cpp
+    src/Particle.h
+    src/Plate.h
+    src/Renderer.h
+    src/Simulation.h
+)
 
-if (BUILD_DEBUG)
-  set(CMAKE_BUILD_TYPE Debug)
-endif()
+add_executable(ChladniPlateSim ${APPLICATION_SOURCE})
 
-if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-  set(BUILD_DEBUG ON CACHE BOOL "Build with debug settings" FORCE)
-endif()
+# Link against GLFW and GLEW libraries
+target_link_libraries(${PROJECT_NAME} glfw)
+target_link_libraries(${PROJECT_NAME} ${glew} ${OPENGL_gl_LIBRARY})
 
+# Set output directory for executable
+set_target_properties(${PROJECT_NAME} PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
+)
 #-------------------------------------------------------------------------------
 # Platform-specific settings
 #-------------------------------------------------------------------------------
@@ -159,60 +183,8 @@ if(WIN32)
 endif(WIN32)
 
 #-------------------------------------------------------------------------------
-# nanogui configuration and compilation
-#-------------------------------------------------------------------------------
-
-# Disable building extras we won't need (pure C++ project)
-set(NANOGUI_BUILD_EXAMPLE OFF CACHE BOOL " " FORCE)
-set(NANOGUI_BUILD_PYTHON  OFF CACHE BOOL " " FORCE)
-set(NANOGUI_INSTALL       OFF CACHE BOOL " " FORCE)
-set(NANOGUI_USE_GLAD      ON  CACHE BOOL " " FORCE)
-
-# Add the configurations from nanogui
-add_subdirectory(ext/nanogui)
-include_directories(ext/nanogui/include)
-
-# For reliability of parallel build, make the NanoGUI targets dependencies
-set_property(TARGET glfw glfw_objects nanogui PROPERTY FOLDER "dependencies")
-
-# For Windows, set the library output directory to put the DLL's next
-# to the binary. I tried to use add_custom_command to just do a copy as a
-# POST_BUILD setting, but for some reason no matter what the command does,
-# Visual Studio will complain about its solution file being modified?
-# In the interest of avoiding the flood of Piazza posts inquiring about this,
-# we take the more robust route.
-if(WIN32)
-  # Also worth mentioning is that since NANOGUI produces a DLL on windows,
-  # it is considered a "RUNTIME" and not a "LIBRARY" target according to CMake.
-  # See https://cmake.org/cmake/help/v3.0/prop_tgt/RUNTIME_OUTPUT_DIRECTORY.html
-  # > For DLL platforms the DLL part of a shared library is treated as a runtime target
-  set_target_properties(nanogui PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
-endif(WIN32)
-
-#-------------------------------------------------------------------------------
-# Find dependencies
-#-------------------------------------------------------------------------------
-
-# Required packages
-find_package(OpenGL REQUIRED)
-find_package(Threads REQUIRED)
-if(NOT WIN32)
-  find_package(Freetype REQUIRED)
-endif()
-
-# CGL
-if(BUILD_LIBCGL)
-  add_subdirectory(CGL)
-  include_directories(CGL/include)
-else(BUILD_LIBCGL)
-  find_package(CGL REQUIRED)
-endif(BUILD_LIBCGL)
-
-#-------------------------------------------------------------------------------
 # Add subdirectories
 #-------------------------------------------------------------------------------
-add_subdirectory(src)
 
 # build documentation
 if(BUILD_DOCS)
@@ -223,4 +195,4 @@ if(BUILD_DOCS)
 endif()
 
 # Install settings
-set(CMAKE_INSTALL_PREFIX "${ClothSim_SOURCE_DIR}/")
+set(CMAKE_INSTALL_PREFIX "${ChladniPlateSim_SOURCE_DIR}/")

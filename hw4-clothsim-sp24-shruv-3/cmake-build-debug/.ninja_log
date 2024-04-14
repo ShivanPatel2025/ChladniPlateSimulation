@@ -1,0 +1,22 @@
+# ninja log v5
+11	90	7348280461283183	CMakeFiles/ChladniPlateSim.dir/src/Plate.cpp.obj	c8bc71e730f0fc82
+22	396	7348280464243846	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/input.c.obj	fb55e360a360c4a2
+8	95	7348280461283183	CMakeFiles/ChladniPlateSim.dir/src/Simulation.cpp.obj	408552582989f15e
+0	631	7348280466694394	CMakeFiles/ChladniPlateSim.dir/src/main.cpp.obj	251de1ea923fa14d
+5	100	7348280461293181	CMakeFiles/ChladniPlateSim.dir/src/Renderer.cpp.obj	3e92e72eb8af820
+412	709	7348280467504578	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj	2476f2094de51d52
+27	366	7348280464043801	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj	3c5b679d4cd5a618
+18	390	7348280464243846	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/init.c.obj	be5f40ea23e3e7e6
+15	401	7348280464283854	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/context.c.obj	49a5dd978abbc6a7
+31	406	7348280464433891	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj	9e35bedff4d06d97
+35	412	7348280464463897	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj	1f9a811a321eaa2f
+91	470	7348280465074033	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/window.c.obj	dc348f45e4053005
+100	480	7348280465214067	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj	3d014d231655be5b
+95	481	7348280465244070	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj	f1751cada0a19267
+366	661	7348280467044479	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj	1a03b850edda9f62
+401	697	7348280467384550	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj	f3ce5da144c41eef
+407	703	7348280467444568	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj	4b595b68b7b80fd5
+710	760	7348280467944679	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/glfw3.lib	b638f54af538f987
+390	703	7348280467444568	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj	c6559972f8ec3f14
+396	710	7348280467514579	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj	725452db2b9908e2
+1	227	7348281558935506	C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/bin/ChladniPlateSim.exe	d6f092bc7a0dad6e

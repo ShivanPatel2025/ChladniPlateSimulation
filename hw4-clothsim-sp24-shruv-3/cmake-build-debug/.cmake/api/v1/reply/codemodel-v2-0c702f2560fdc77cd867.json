@@ -1,0 +1,159 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						3
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw",
+					"childIndexes" : 
+					[
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-glfw-Release-5176a4dce5da278b76f7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "glfw",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-glfw.src-Release-3238d1c2b442a2c484db.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "glfw/src",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glew",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-glew-Release-ccc7c10ea2417dd2c6e0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "glew",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						3
+					],
+					"name" : "ChladniPlateSim",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1,
+						2
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ChladniPlateSim::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ChladniPlateSim-Release-3dbc9a6575dc1d95a4d6.json",
+					"name" : "ChladniPlateSim",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "glew::@35ac92beaaaa53d78418",
+					"jsonFile" : "target-glew-Release-f6a6eb416ad8a1c8a80f.json",
+					"name" : "glew",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "glfw::@c23705346733ed3ac377",
+					"jsonFile" : "target-glfw-Release-3c6260df1779b9941ee2.json",
+					"name" : "glfw",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "uninstall::@375d7e0f93a4ac7dec72",
+					"jsonFile" : "target-uninstall-Release-4785b4b3398f9c88301b.json",
+					"name" : "uninstall",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/cmake-build-debug",
+		"source" : "C:/Users/Alejandro Dominguez/Desktop/CS 184/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}
