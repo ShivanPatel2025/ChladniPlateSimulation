@@ -9,6 +9,9 @@
 const float L1 = 0.04;
 const float L2 = 0.02;
 const float L3 = 0.018;
+// Global index for the current chladni parameters
+int currentParamIndex = 0;
+
 
 
 const float PI = 3.14159265358979323846;
@@ -120,9 +123,18 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
             case GLFW_KEY_R: // Resize
                 needsResize = true;
                 break;
+            case GLFW_KEY_UP: // Increase frequency pattern
+                currentParamIndex = (currentParamIndex + 1) % chladniParams.size();
+                needsResize = true;  // Force recalculation of patterns
+                break;
+            case GLFW_KEY_DOWN: // Decrease frequency pattern
+                currentParamIndex = (currentParamIndex - 1 + chladniParams.size()) % chladniParams.size();
+                needsResize = true;  // Force recalculation of patterns
+                break;
         }
     }
 }
+
 
 void initializeParticles(std::vector<Particle>& particles, int windowWidth, int windowHeight) {
     std::random_device rd;
@@ -209,14 +221,14 @@ int main() {
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // Resize handling
+        // Check if parameters need updating
         if (needsResize) {
             glfwGetFramebufferSize(window, &windowWidth, &windowHeight);
             glViewport(0, 0, windowWidth, windowHeight);
             initializeParticles(particles, windowWidth, windowHeight);
             sim.width = windowWidth;
             sim.height = windowHeight;
-            sim.computeVibrationValues(chladniParams[0]); // Recompute for new dimensions
+            sim.computeVibrationValues(chladniParams[currentParamIndex]); // Compute with new parameters
             sim.computeGradients();
             needsResize = false;
         }
