@@ -165,14 +165,14 @@ void updateParticles(std::vector<Particle>& particles, Simulation& sim, int wind
         Gradient grad = sim.gradients[index];
 
         // Apply a factor to slow down movement
-        particle.x += grad.dx * slowFactor;
-        particle.y += grad.dy * slowFactor;
+        particle.x += grad.dx * slowFactor + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX) * windowWidth);
+        particle.y += grad.dy * slowFactor + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX) * windowHeight);
 
         // Boundary checks (wrap around)
-        if (particle.x >= windowWidth) particle.x = 0;
-        if (particle.x < 0) particle.x = windowWidth - 1;
-        if (particle.y >= windowHeight) particle.y = 0;
-        if (particle.y < 0) particle.y = windowHeight - 1;
+        if (particle.x >= windowWidth) particle.x = rand() % windowWidth;
+        if (particle.x < 0) particle.x = rand() % windowWidth;
+        if (particle.y >= windowHeight) particle.y = rand() % windowHeight;
+        if (particle.y < 0) particle.y = rand() % windowHeight;
     }
 }
 
