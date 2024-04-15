@@ -1,0 +1,27 @@
+# ninja log v5
+14	263	7348303732308934	CMakeFiles/ChladniPlateSim.dir/src/Simulation.cpp.obj	13c9a4211b0210de
+8	277	7348303732776724	CMakeFiles/ChladniPlateSim.dir/src/Plate.cpp.obj	8d207a8d3d8136ed
+1	284	7348303732827230	CMakeFiles/ChladniPlateSim.dir/src/Renderer.cpp.obj	ab212775da288599
+268	1320	7348303743372189	CMakeFiles/ChladniPlateSim.dir/src/main.cpp.obj	1730b9e4c0d113e0
+39	1988	7348303749929814	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/context.c.obj	f7f5f3babfba63a6
+32	2003	7348303749909879	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/init.c.obj	ac8e38a59977f1a9
+277	2042	7348303750090549	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj	de4665abdd245897
+285	2197	7348303751618095	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj	b2293af4ecdb441c
+21	2279	7348303752918953	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/input.c.obj	f9590808bc48922c
+1322	2896	7348303759235651	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj	718513a0beac9710
+2219	3432	7348303764586120	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj	c3ce386fd8a0c9c6
+2043	3454	7348303764788385	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj	9e7702065470c01a
+2286	3552	7348303765736589	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj	baa45b3c1179c5f
+1990	3597	7348303765848000	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/window.c.obj	afb2e3f8b76cfe26
+2020	3599	7348303765848000	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj	51c0438bb069e5c6
+2896	4288	7348303773153400	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj	cb865bca32c22829
+3553	4632	7348303776600850	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj	3d18bd13e1d6f6e1
+3433	4654	7348303776823292	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj	6c46474e5101db64
+3454	4945	7348303779730197	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj	4502339a96600dc1
+4945	5075	7348303781015691	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src/libglfw3.a	b3597c6ee934a9a
+5075	5255	7348303782781825	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/bin/ChladniPlateSim.exe	fec92f8b2229479f
+7	1065	7348413338961051	CMakeFiles/ChladniPlateSim.dir/src/main.cpp.obj	1730b9e4c0d113e0
+1066	1567	7348413343906030	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/bin/ChladniPlateSim.exe	fec92f8b2229479f
+20	911	7348436998781097	CMakeFiles/ChladniPlateSim.dir/src/main.cpp.obj	1730b9e4c0d113e0
+4	740	7348439102373539	CMakeFiles/ChladniPlateSim.dir/src/main.cpp.obj	1730b9e4c0d113e0
+741	901	7348439103935881	C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/bin/ChladniPlateSim.exe	fec92f8b2229479f

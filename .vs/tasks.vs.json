@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-CMakeLists",
+      "appliesTo": "hw4-clothsim-sp24-shruv-3/CMakeLists.txt",
+      "type": "launch"
+    }
+  ]
+}

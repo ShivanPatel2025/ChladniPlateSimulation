@@ -1,0 +1,159 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						3
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw",
+					"childIndexes" : 
+					[
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-glfw-Release-2368eab68d61d99a7804.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "glfw",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glfw/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-glfw.src-Release-6a5a8b964cc1fda4317f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "glfw/src",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/glew",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-glew-Release-8f290e17d09c109267f7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "glew",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						3
+					],
+					"name" : "ChladniPlateSim",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1,
+						2
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ChladniPlateSim::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ChladniPlateSim-Release-495c01ba9347df29f673.json",
+					"name" : "ChladniPlateSim",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "glew::@513d5383fb4bf25507f7",
+					"jsonFile" : "target-glew-Release-dc4a69fd5e6a2b70d583.json",
+					"name" : "glew",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "glfw::@2b57e596954ae896c758",
+					"jsonFile" : "target-glfw-Release-25989c599236bf5e1192.json",
+					"name" : "glfw",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "uninstall::@e12e913dfa7fed1d96f4",
+					"jsonFile" : "target-uninstall-Release-c00f49ce211950589591.json",
+					"name" : "uninstall",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3/cmake-build-release",
+		"source" : "C:/Users/nelli/ChladniPlateSimulation/hw4-clothsim-sp24-shruv-3"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
