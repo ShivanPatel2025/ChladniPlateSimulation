@@ -9,6 +9,8 @@
 const float L1 = 0.04;
 const float L2 = 0.02;
 const float L3 = 0.018;
+
+
 const float PI = 3.14159265358979323846;
 
 struct ChladniParams {
@@ -104,7 +106,7 @@ void updateParticles(std::vector<Particle>& particles, int windowWidth, int wind
 void renderParticles(const std::vector<Particle>& particles, int windowWidth, int windowHeight);
 
 // Global variables for simulation state
-bool isRunning = true;
+bool isRunning = false;
 bool needsResize = false;
 
 
@@ -128,7 +130,7 @@ void initializeParticles(std::vector<Particle>& particles, int windowWidth, int 
     std::uniform_real_distribution<> dis(0.0, 1.0);
 
     particles.clear();
-    for (int i = 0; i < 30000; ++i) { // Adjust particle count as needed to match JavaScript
+    for (int i = 0; i < 30000; ++i) {
         particles.emplace_back(dis(gen) * windowWidth, dis(gen) * windowHeight);
     }
 }
@@ -136,18 +138,29 @@ void initializeParticles(std::vector<Particle>& particles, int windowWidth, int 
 void updateParticles(std::vector<Particle>& particles, Simulation& sim, int windowWidth, int windowHeight, bool isRunning) {
     if (!isRunning) return;
 
+    float slowFactor = 0.1; // Reduce speed by using a factor < 1
+
     for (auto& particle : particles) {
-        int index = int(particle.y) * windowWidth + int(particle.x);
+        if (particle.x < 0 || particle.x >= windowWidth || particle.y < 0 || particle.y >= windowHeight) {
+            continue; // Skip update if particle is out of bounds
+        }
+
+        int index = static_cast<int>(particle.y) * windowWidth + static_cast<int>(particle.x);
+        if (index < 0 || index >= sim.gradients.size()) {
+            continue; // Safety check for valid index
+        }
+
         Gradient grad = sim.gradients[index];
 
-        particle.x += grad.dx;  // Move particle along gradient x
-        particle.y += grad.dy;  // Move particle along gradient y
+        // Apply a factor to slow down movement
+        particle.x += grad.dx * slowFactor;
+        particle.y += grad.dy * slowFactor;
 
-        // Keep particles within window bounds
-        if (particle.x >= windowWidth) particle.x -= windowWidth;
-        if (particle.x < 0) particle.x += windowWidth;
-        if (particle.y >= windowHeight) particle.y -= windowHeight;
-        if (particle.y < 0) particle.y += windowHeight;
+        // Boundary checks (wrap around)
+        if (particle.x >= windowWidth) particle.x = 0;
+        if (particle.x < 0) particle.x = windowWidth - 1;
+        if (particle.y >= windowHeight) particle.y = 0;
+        if (particle.y < 0) particle.y = windowHeight - 1;
     }
 }
 
