@@ -5,44 +5,49 @@
 #include <random>
 
 
-
+// Constants for different Chladni plate parameters.
 const float L1 = 0.04;
 const float L2 = 0.02;
 const float L3 = 0.018;
-// Global index for the current chladni parameters
+
+// Index to track which Chladni parameter set is currently active.
 int currentParamIndex = 0;
 
+// Constant for PI.
+const float PI = 3.141592653589793238462643383279502884197;
 
-
-const float PI = 3.14159265358979323846;
-
+// Structure to store Chladni parameters including mode numbers (m, n) and scaling factor (l).
 struct ChladniParams {
     int m, n;
     float l;
     ChladniParams(int m, int n, float l) : m(m), n(n), l(l) {}
 };
 
+// List of Chladni parameters configurations.
 std::vector<ChladniParams> chladniParams = {
         {1, 2, L1}, {1, 3, L3}, {1, 4, L2}, {1, 5, L2},
         {2, 3, L2}, {2, 5, L2}, {3, 4, L2}, {3, 5, L2}, {3, 7, L2}
 };
 
+// Structure to store gradient vectors.
 struct Gradient {
     float dx, dy;
 };
 
-
+// Class to manage the Chladni plate simulation.
 class Simulation {
 public:
-    std::vector<float> vibrationValues;
-    std::vector<Gradient> gradients;
-    int width, height;
+    std::vector<float> vibrationValues; // Stores vibration values at each grid point.
+    std::vector<Gradient> gradients;    // Stores gradient vectors for particle movement.
+    int width, height;                  // Dimensions of the simulation grid.
 
+     // Computes vibration values based on current Chladni parameters.
     void computeVibrationValues(const ChladniParams& params) {
         vibrationValues.resize(width * height);
-        float TX = std::rand() % height;  // Translate X
-        float TY = std::rand() % height;  // Translate Y
+        float TX = std::rand() % height;  // Random translation offset X
+        float TY = std::rand() % height;  // Random translation offset Y
 
+        // Calculate vibration values across the grid.
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
                 float scaledX = x * params.l + TX;
@@ -52,22 +57,23 @@ public:
                 float NY = params.n * scaledY;
                 float MY = params.m * scaledY;
 
+                // Vibration formula for a Chladni plate.
                 float value = std::cos(NX) * std::cos(MY) - std::cos(MX) * std::cos(NY);
-                value /= 2;  // Normalize from [-2..2] to [-1..1]
-                value *= std::copysign(1.0, value);  // Flip troughs to become crests
-
+                value /= 2; 
+                value *= std::copysign(1.0, value); 
                 vibrationValues[y * width + x] = value;
             }
         }
     }
 
+    // Computes gradients from the vibration values to guide particle movement.
     void computeGradients() {
         gradients.resize(width * height);
         for (int y = 1; y < height - 1; ++y) {
             for (int x = 1; x < width - 1; ++x) {
                 int index = y * width + x;
                 float currentVibration = vibrationValues[index];
-                if (std::abs(currentVibration) < 0.01) {  // Node threshold
+                if (std::abs(currentVibration) < 0.01) {  
                     gradients[index] = {0, 0};
                     continue;
                 }
@@ -75,6 +81,7 @@ public:
                 Gradient bestGradient = {0, 0};
                 float minVibration = std::numeric_limits<float>::max();
 
+                 // Find the gradient with minimum neighboring vibration value.
                 for (int ny = -1; ny <= 1; ++ny) {
                     for (int nx = -1; nx <= 1; ++nx) {
                         if (nx == 0 && ny == 0) continue;
@@ -88,7 +95,6 @@ public:
                         }
                     }
                 }
-
                 gradients[index] = bestGradient;
             }
         }
@@ -96,9 +102,9 @@ public:
 };
 
 
-// Define the Particle structure
+// Particle structure for representing individual particles in the simulation.
 struct Particle {
-    float x, y;     // Position
+    float x, y;    // Position of the particle.
     Particle(float x, float y) : x(x), y(y) {}
 };
 
@@ -107,35 +113,72 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 void initializeParticles(std::vector<Particle>& particles, int windowWidth, int windowHeight);
 void updateParticles(std::vector<Particle>& particles, int windowWidth, int windowHeight, bool isRunning);
 void renderParticles(const std::vector<Particle>& particles, int windowWidth, int windowHeight);
+void initializeParticlesAtMouse(std::vector<Particle>& particles, int windowWidth, int windowHeight, int count, float posX, float posY);
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
-// Global variables for simulation state
+// Global variables to control simulation state.
 bool isRunning = false;
 bool needsResize = false;
 
-
-
+// Function to handle key press events.
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (action == GLFW_PRESS) {
         switch (key) {
-            case GLFW_KEY_SPACE: // Toggle running state
+            case GLFW_KEY_SPACE: 
+            // Toggle simulation
                 isRunning = !isRunning;
                 break;
-            case GLFW_KEY_R: // Resize
+            case GLFW_KEY_R: 
+            // Resize
                 needsResize = true;
                 break;
-            case GLFW_KEY_UP: // Increase frequency pattern
+            case GLFW_KEY_UP: 
+            // Increase frequency pattern
                 currentParamIndex = (currentParamIndex + 1) % chladniParams.size();
-                needsResize = true;  // Force recalculation of patterns
+                needsResize = true;  
                 break;
-            case GLFW_KEY_DOWN: // Decrease frequency pattern
+            case GLFW_KEY_DOWN: 
+            // Decrease frequency pattern
                 currentParamIndex = (currentParamIndex - 1 + chladniParams.size()) % chladniParams.size();
-                needsResize = true;  // Force recalculation of patterns
+                needsResize = true;  
                 break;
         }
     }
 }
 
+// Function to handle mouse button press events.
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+        double xpos, ypos;
+        glfwGetCursorPos(window, &xpos, &ypos);
+        int windowWidth, windowHeight;
+        glfwGetWindowSize(window, &windowWidth, &windowHeight);
 
+        ypos = windowHeight - ypos - 1;
+
+        void* ptr = glfwGetWindowUserPointer(window);
+        if (!ptr) return; 
+        std::vector<Particle>* particles = static_cast<std::vector<Particle>*>(ptr);
+
+        initializeParticlesAtMouse(*particles, windowWidth, windowHeight, 500, xpos, ypos); 
+    }
+}
+
+// Function to initialize particles at a given mouse position.
+void initializeParticlesAtMouse(std::vector<Particle>& particles, int windowWidth, int windowHeight, int count, float posX, float posY) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(-10.0, 10.0); 
+
+    for (int i = 0; i < count; ++i) {
+        float x = posX + dis(gen); 
+        float y = posY + dis(gen);
+        particles.emplace_back(x, y);
+    }
+}
+
+
+// Function to initialize particles at random positions.
 void initializeParticles(std::vector<Particle>& particles, int windowWidth, int windowHeight) {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -147,40 +190,49 @@ void initializeParticles(std::vector<Particle>& particles, int windowWidth, int 
     }
 }
 
+// Function to update particle positions based on the simulation gradients.
 void updateParticles(std::vector<Particle>& particles, Simulation& sim, int windowWidth, int windowHeight, bool isRunning) {
     if (!isRunning) return;
 
-    float slowFactor = 0.1; // Reduce speed by using a factor < 1
+    // Slow factor to control particle movement speed.
+    float slowFactor = 0.05; 
 
+    // Update particle positions based on the gradient vectors.
     for (auto& particle : particles) {
         if (particle.x < 0 || particle.x >= windowWidth || particle.y < 0 || particle.y >= windowHeight) {
-            continue; // Skip update if particle is out of bounds
+            continue; 
         }
 
         int index = static_cast<int>(particle.y) * windowWidth + static_cast<int>(particle.x);
         if (index < 0 || index >= sim.gradients.size()) {
-            continue; // Safety check for valid index
+            continue; 
         }
 
         Gradient grad = sim.gradients[index];
 
-        // Apply a factor to slow down movement
-        particle.x += grad.dx * slowFactor + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX) * windowWidth);
-        particle.y += grad.dy * slowFactor + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX) * windowHeight);
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<> dis(-0.5, 0.5); // Random displacement distribution
 
-        // Boundary checks (wrap around)
-        if (particle.x >= windowWidth) particle.x = rand() % windowWidth;
-        if (particle.x < 0) particle.x = rand() % windowWidth;
-        if (particle.y >= windowHeight) particle.y = rand() % windowHeight;
-        if (particle.y < 0) particle.y = rand() % windowHeight;
+// Randomly adjust the particle's position
+        particle.x += grad.dx * slowFactor + dis(gen); // Add some randomness
+        particle.y += grad.dy * slowFactor + dis(gen);//
+        // Apply a factor to slow down movement
+       // particle.x += grad.dx * slowFactor + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX) * windowWidth);
+       // particle.y += grad.dy * slowFactor + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX) * windowHeight);
+
+        // Boundary checks
     }
 }
 
-
+// Function to render particles on the screen.
 void renderParticles(const std::vector<Particle>& particles, int windowWidth, int windowHeight) {
     glPointSize(1.0f);
     glBegin(GL_POINTS);
     for (const auto& particle : particles) {
+        if (particle.x <= 0 || particle.x >= windowWidth || particle.y <= 0 || particle.y >= windowHeight) {
+            continue; 
+        }
         float glX = (particle.x / windowWidth) * 2.0f - 1.0f;
         float glY = (particle.y / windowHeight) * 2.0f - 1.0f;
         glVertex2f(glX, glY);
@@ -189,6 +241,7 @@ void renderParticles(const std::vector<Particle>& particles, int windowWidth, in
 }
 
 
+// Main function to run the simulation.
 int main() {
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW." << std::endl;
@@ -205,17 +258,22 @@ int main() {
     }
 
     glfwMakeContextCurrent(window);
-    glfwSetKeyCallback(window, keyCallback); // Set the key callback for GLFW
+    glfwSetKeyCallback(window, keyCallback); 
+    glfwSetMouseButtonCallback(window, mouseButtonCallback);
+    
+
 
     // Create and initialize particles
     std::vector<Particle> particles;
     initializeParticles(particles, windowWidth, windowHeight);
+    glfwSetWindowUserPointer(window, &particles);
+
 
     // Initialize Simulation
     Simulation sim;
     sim.width = windowWidth;
     sim.height = windowHeight;
-    sim.computeVibrationValues(chladniParams[0]); // Initial computation with the first parameter set
+    sim.computeVibrationValues(chladniParams[0]);
     sim.computeGradients();
 
     while (!glfwWindowShouldClose(window)) {
@@ -228,7 +286,7 @@ int main() {
             initializeParticles(particles, windowWidth, windowHeight);
             sim.width = windowWidth;
             sim.height = windowHeight;
-            sim.computeVibrationValues(chladniParams[currentParamIndex]); // Compute with new parameters
+            sim.computeVibrationValues(chladniParams[currentParamIndex]); 
             sim.computeGradients();
             needsResize = false;
         }
