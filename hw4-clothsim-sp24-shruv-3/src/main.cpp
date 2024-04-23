@@ -25,8 +25,8 @@ struct ChladniParams {
 
 // List of Chladni parameters configurations.
 std::vector<ChladniParams> chladniParams = {
-        {1, 2, L1}, {1, 3, L3}, {1, 4, L2}, {1, 5, L2},
-        {2, 3, L2}, {2, 5, L2}, {3, 4, L2}, {3, 5, L2}, {3, 7, L2}
+        {1, 2, L1}, {1, 3, L3}, {2, 3, L2}, {1, 4, L2}, {2, 4, L2}, {3, 4, L2}, {1, 5, L2},
+          {2, 5, L2}, {3, 5, L2}, {3, 7, L2}
 };
 
 // Structure to store gradient vectors.
@@ -115,10 +115,13 @@ void updateParticles(std::vector<Particle>& particles, int windowWidth, int wind
 void renderParticles(const std::vector<Particle>& particles, int windowWidth, int windowHeight);
 void initializeParticlesAtMouse(std::vector<Particle>& particles, int windowWidth, int windowHeight, int count, float posX, float posY);
 void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+float calculateFrequency(const ChladniParams& params);
+void displayFrequency(GLFWwindow* window, float frequency);
 
 // Global variables to control simulation state.
 bool isRunning = false;
 bool needsResize = false;
+float currentFrequency = 0.0;
 
 // Function to handle key press events.
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -135,15 +138,37 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
             case GLFW_KEY_UP: 
             // Increase frequency pattern
                 currentParamIndex = (currentParamIndex + 1) % chladniParams.size();
-                needsResize = true;  
+                needsResize = true;
+                currentFrequency = calculateFrequency(chladniParams[currentParamIndex]);
+                displayFrequency(window, currentFrequency);
                 break;
             case GLFW_KEY_DOWN: 
             // Decrease frequency pattern
                 currentParamIndex = (currentParamIndex - 1 + chladniParams.size()) % chladniParams.size();
                 needsResize = true;  
+                currentFrequency = calculateFrequency(chladniParams[currentParamIndex]);
+                displayFrequency(window, currentFrequency);
                 break;
         }
     }
+}
+
+float calculateFrequency(const ChladniParams& params) {
+    // Physical constants for steel
+    const float E = 2.1e11f; // Young's modulus in Pascal
+    const float density = 7800.0f; // Density in kg/m^3
+    const float h = 0.01f; // Plate thickness in meters
+    const float a = 0.5f; // Side length of the square plate in meters
+
+    // Frequency calculation for a square plate with free boundaries
+    float frequency = (PI / 2) * sqrt(E / density) * (h / (a * a)) * sqrt((params.m * params.m) + (params.n * params.n));
+    return frequency;
+}
+
+void displayFrequency(GLFWwindow* window, float frequency) {
+    char title[256];
+    sprintf(title, "Chladni Plate Simulation - Frequency: %.2f Hz", frequency);
+    glfwSetWindowTitle(window, title);
 }
 
 // Function to handle mouse button press events.
@@ -275,6 +300,8 @@ int main() {
     sim.height = windowHeight;
     sim.computeVibrationValues(chladniParams[0]);
     sim.computeGradients();
+    float currentFrequency = calculateFrequency(chladniParams[currentParamIndex]);
+    displayFrequency(window, currentFrequency);
 
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
