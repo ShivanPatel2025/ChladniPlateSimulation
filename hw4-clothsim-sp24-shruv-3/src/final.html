@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Final Report: Chladni Plate Simulation</title>
+        <style>
+            body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            }
+            .container {
+            max-width: 62%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            .section {
+            margin-bottom: 30px;
+            }
+            h1, h2 {
+            color: #2c3e50;
+            }
+            h1 {
+            margin-top: 60px;
+            font-size: 28px;
+            }
+            h2 {
+            font-size: 23px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+            margin-bottom: 0px;
+            }
+            p, li { 
+            color: #555;
+            font-size: 17px;
+            line-height: 1.6;
+            }
+            ul {
+            padding-left: 20px;
+            }
+            a {
+            color: #2980b9;
+            text-decoration: none;
+            }
+            a:hover {
+            text-decoration: underline;
+            }
+            iframe {
+            width: 100%;
+            height: 360px;
+            border: none;
+            margin-top: 20px;
+            }
+            img {
+            max-width: 70%;
+            height: auto;
+            display: block;
+            margin: 0px auto;
+            }
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .grid div  label {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Final Report: Chladni Plate Simulation</h1>
+            <p>By: Dhruv Chowdhary, Shivan Patel, Alejandro Dominguez, Nellie Mullane</p>
+            <div class="section">
+                <h2>Abstract</h2>
+                <p>This project aims to simulate the formation of Chladni patterns, which are created when a flat surface covered in sand vibrates at certain frequencies. These patterns emerge because of the standing wave phenomena, which this project emulates through implementing physical modeling, graphical rendering, and interactive controls. By simulating these patterns, the project provides a visually engaging tool that displays the principles of wave interference and modal phenomena in physics. We furthered the impact of this project by adding effective user interaction (pausing, adding sand, changing frequencies) and realistic particle dynamics.</p>
+            </div>
+            <div class="section">
+    <h2>Technical Approach</h2>
+    <p>Our project uses C++ and the GLFW library for creating an interactive Chladni plate simulation. By incorporating modern OpenGL for rendering, we compute and visualize vibrational patterns using a series of defined parameters that simulate the physical attributes and behaviors of a steel plate.</p>
+    <p>Realistic particle movement was added by introducing a randomization factor and implementing damping to emulate friction. The resulting particle dynamics are influenced by the calculated gradients of vibrational patterns, allowing for an realistic representation of sand behavior on a vibrating surface.</p>
+    <p>We calculate the frequency in real-time which is displayed in the window title, allowing for dynamic user interaction. Users can introduce more particles into the simulation, offering insights into the nodal and anti-nodal lines formed by the Chladni figures as the simulation progresses.</p>
+</div>
+
+
+            <div class="section">
+                <h3>User Interaction</h3>
+                <p>The simulation is designed with an interactive interface where users can manipulate the frequency of vibrations through predefined settings (using the arrow keys), directly observing how different frequencies influence the pattern formation. These predetermined settings iterate between different combinations of m and n which represent the mode numbers of the vibration patterns. These numbers determine the number of nodal lines (places with no movement) in each direction on the plate. For example, <i>m</i>=1 and <i>n</i>=2 would mean the plate has one nodal line in one direction and two in the perpendicular direction.</p>
+                <p>Users can also pause/play (space bar) and restart (r) the simulation at any point. Furthermore, users can add particles to the simulation by clicking on the screen, which simulates dropping sand onto the vibrating plate. This feature not only makes the simulation interactive but also helps in understanding the nodal and anti-nodal lines of the patterns as particles move to regions of least vibration.</p>
+            </div>
+            <div class="section">
+                <h3>Frequency Calculation</h3>
+                <p>The resonant frequency for each mode of vibration in our Chladni Plate Simulation is calculated using the following formula, which takes into account the physical properties of a steel plate:</p>
+                <p>Parameters for Steel Plate:</p>
+                <ul>
+                    <li><strong>Young's Modulus (E):</strong> 2.1 × 10<sup>11</sup> Pa</li>
+                    <li><strong>Density (ρ):</strong> 7800 kg/m<sup>3</sup></li>
+                    <li><strong>Thickness (h):</strong> 0.01 meters</li>
+                    <li><strong>Side Length (a):</strong> 0.5 meters</li>
+                </ul>
+                <p>Below is the formula used in the simulation to calculate the frequency (<i>f<sub>mn</sub></i>) for modes <i>m</i> and <i>n</i>:</p>
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mi>f</mi>
+                    <mo>=</mo>
+                    <mfrac>
+                        <mi>π</mi>
+                        <mn>2</mn>
+                    </mfrac>
+                    <msqrt>
+                        <mfrac>
+                            <mi>E</mi>
+                            <mi>ρ</mi>
+                        </mfrac>
+                    </msqrt>
+                        <mo>×</mo>
+                        <mfrac>
+                            <mi>h</mi>
+                            <msup>
+                                <mi>a</mi>
+                                <mn>2</mn>
+                            </msup>
+                        </mfrac>
+                        <mo>×</mo>
+                        <msqrt>
+                            <msup>
+                                <mi>m</mi>
+                                <mn>2</mn>
+                            </msup>
+                            <mo>+</mo>
+                            <msup>
+                                <mi>n</mi>
+                                <mn>2</mn>
+                            </msup>
+                        </msqrt>
+                    </math>
+                <p>The frequency is computed by multiplying the square root of the Young's modulus divided by the density and the thickness over the side length squared by the square root of the sum of the squares of the mode numbers, all multiplied by π/2.</p>
+            </div>
+            <div class="section">
+    <h3>Problems and Solutions</h2>
+    <p>We ran into trouble when our program behaved differently on Macs compared to Windows, with issues like varying speeds and even occasionaly compiling errors. After debugging the code, we still couldn't understand why things were behaving differently. We then realized the difference in computers and found that the issues were simply just hardware differences.</p>
+    <p>Getting the particles to move naturally was another hurdle. At first, they moved straight to their spots, which looked odd. We tried several ways to "shake" the particles until we found just the right amount of randomness to make the motion look real.</p>
+</div>
+
+<div class="section">
+    <h3>Lessons Learned</h2>
+     <p>One big takeaway was the need to consider different computer environments, to make sure everyone gets the same experience. We also learned a lot about simulating. It's a delicate balance of making things look random but not too random, to mimic what happens in the real world.</p>
+</div>
+
+            <div class="section">
+                <h2>Results</h2>
+                <p>Below is a video demonstrating the dynamic behavior of our Chladni Plate Simulation:</p>
+                <iframe src="https://drive.google.com/file/d/1Fd3chPY-SzGczLxI_PBUPoLJxS9oCAX4/preview" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <p>Following are screenshots showing various patterns produced by the simulation at different frequencies:</p>
+                <div class="grid">
+                    <div><img src="image1.png" alt="Pattern 1"><label>729.00 Hz</label></div>
+                    <div><img src="image2.png" alt="Pattern 2"><label>1030.96 Hz</label></div>
+                    <div><img src="image3.png" alt="Pattern 3"><label>1175.48 Hz</label></div>
+                    <div><img src="image4.png" alt="Pattern 4"><label>1344.21 Hz</label></div>
+                    <div><img src="image5.png" alt="Pattern 5"><label>1630.06 Hz</label></div>
+                    <div><img src="image6.png" alt="Pattern 6"><label>1662.37 Hz</label></div>
+                </div>
+            </div>
+            <div class="section">
+            <div class="section">
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://paulbourke.net/geometry/chladni/" target="_blank">Paul Bourke - Chladni Patterns</a></li>
+                    <li><a href="https://luciopaiva.com/chladni/" target="_blank">Lucio Paiva - Web Chladni</a></li>
+                    <li><a href="https://thelig.ht/chladni/" target="_blank">The Light - Interactive Chladni Patterns</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=1yaqUI4b974&t=310s" target="_blank">YouTube - Resonance Experiment!</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=lRFysSAxWxI" target="_blank">YouTube - Chladni Plates</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=tFAcYruShow" target="_blank">YouTube - Cymatics: Chladni Plate - Sound, Vibration and Sand</a></li>
+                </ul>
+            </div>             
+        </div>
+        <div class="section">
+            <h2>Contributions</h2>
+            <p>Overall, most of the development was done together, through synchronous and in-person pair programming. Research and planning was also done together. Individual contributions include:</p>
+            <ul>
+                <li>Shivan Patel: Created proposal and milestone websites. Helped set up the repo and skeleton code for project. Added in basic functionality and initial iterations of particle simulation. Added in the functionality to place sand on the plate.</li>
+                <li>Dhruv Chowdhary: Helped write the proposal, milestone, and final websites. Made basic functionality of the simulation work with particles moving. Added in the frequency calculation and displayed the frequency on the window.</li>
+                <li>Nellie Mullane: Made the slides for the midway checkpoint and the final presentation. Helped with implementing and researching the gradient computation for particle movement. Helped with initial research on the properties of Chladni plates and patterns.</li>
+                <li>Alejandro Dominguez: Proposed the subject of the final project. Helped set up the CMake and the repo, especially for the dependencies (CGL, glew, glfw). Made both the final and midpoint videos. Added in improved randomness and realism to make the simulation appear more accurate.</li>
+            </ul>
+        </div>
+        </div>
+    </body>
+</html>
