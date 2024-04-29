@@ -22,6 +22,20 @@
             .section {
             margin-bottom: 30px;
             }
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-bottom: 10px;
+                border-bottom: 2px solid #ecf0f1;
+            }
+            .header-title {
+                flex-grow: 1;
+            }
+            .header-gif {
+                width: 600px;
+                height: auto;
+            }
             h1, h2 {
             color: #2c3e50;
             }
@@ -78,8 +92,15 @@
     </head>
     <body>
         <div class="container">
-            <h1>Final Report: Chladni Plate Simulation</h1>
-            <p>By: Dhruv Chowdhary, Shivan Patel, Alejandro Dominguez, Nellie Mullane</p>
+            <div class="header">
+                <div class="header-title">
+                    <h1>Final Report: Chladni Plate Simulation</h1>
+                    <p>By: Dhruv Chowdhary, Shivan Patel, Alejandro Dominguez, Nellie Mullane</p>
+                </div>
+                <div>
+                    <img class="header-gif" src="ChladniSimVideo.gif" alt="Chladni Plate Simulation">
+                </div>
+            </div>
             <div class="section">
                 <h2>Abstract</h2>
                 <p>This project aims to simulate the formation of Chladni patterns, which are created when a flat surface covered in sand vibrates at certain frequencies. These patterns emerge because of the standing wave phenomena, which this project emulates through implementing physical modeling, graphical rendering, and interactive controls. By simulating these patterns, the project provides a visually engaging tool that displays the principles of wave interference and modal phenomena in physics. We furthered the impact of this project by adding effective user interaction (pausing, adding sand, changing frequencies) and realistic particle dynamics.</p>

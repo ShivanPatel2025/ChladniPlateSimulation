@@ -220,7 +220,7 @@ void updateParticles(std::vector<Particle>& particles, Simulation& sim, int wind
     if (!isRunning) return;
 
     // Slow factor to control particle movement speed.
-    float slowFactor = 0.05; 
+    float slowFactor = 0.2; 
 
     // Update particle positions based on the gradient vectors.
     for (auto& particle : particles) {
